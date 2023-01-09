@@ -8,9 +8,14 @@ import android.view.Gravity
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import coil.load
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import ru.abyzbaev.nasaapp.PictureOfTheDayData
 import ru.abyzbaev.nasaapp.R
 import ru.abyzbaev.nasaapp.databinding.FragmentMainBinding
@@ -20,6 +25,7 @@ class PictureOfTheDayFragment : Fragment() {
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
 
+    private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
     private val viewModel: PictureOfTheDayViewModel by lazy {
         ViewModelProvider.NewInstanceFactory().create(PictureOfTheDayViewModel::class.java)
     }
@@ -40,6 +46,12 @@ class PictureOfTheDayFragment : Fragment() {
                 data = Uri.parse("https://en.wikipedia.org/wiki/${binding.inputEditText.text.toString()}")
             })
         }
+        setBottomSheetBehavior(view.findViewById(R.id.bottom_sheet_container))
+    }
+
+    private fun setBottomSheetBehavior(bottomSheet: ConstraintLayout){
+        bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet)
+        bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
     }
 
     private fun renderData(data: PictureOfTheDayData){
@@ -53,7 +65,7 @@ class PictureOfTheDayFragment : Fragment() {
                     toast("Link is empty")
                 }else{
                     //Отобразите фото
-                    //showSuccess()
+                    showSuccess()
                     //Coil в работе: достаточно вызвать у нашего ImageView нужную
                     //extension-функцию и передать ссылку на изображение
                     //а в лямбде указать дополнительные параметры  (не обязательно)
@@ -64,11 +76,13 @@ class PictureOfTheDayFragment : Fragment() {
                         placeholder(R.drawable.ic_no_photo_vector)
                         crossfade(true)
                     }
+                    requireView().findViewById<TextView>(R.id.bottomSheetDescriptionHeader).text = serverResponseData.title
+                    requireView().findViewById<TextView>(R.id.bottomSheetDescription).text = serverResponseData.explanation
                 }
             }
             is PictureOfTheDayData.Loading ->{
                 //Отобразите загрузку
-                // showLoading()
+                showLoading()
             }
             is PictureOfTheDayData.Error ->{
                 //Отобразите ошибку
@@ -76,6 +90,15 @@ class PictureOfTheDayFragment : Fragment() {
                 toast(data.error.message)
             }
         }
+    }
+
+    private fun showSuccess() {
+        this.binding.loading.loadingLayout.visibility = GONE
+    }
+
+
+    private fun showLoading() {
+        this.binding.loading.loadingLayout.visibility = VISIBLE
     }
 
     private fun toast(string: String?){
