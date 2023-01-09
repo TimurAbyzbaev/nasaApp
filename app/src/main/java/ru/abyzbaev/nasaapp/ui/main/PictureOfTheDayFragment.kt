@@ -1,5 +1,7 @@
 package ru.abyzbaev.nasaapp.ui.main
 
+import android.content.Intent
+import android.net.Uri
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.view.Gravity
@@ -29,6 +31,15 @@ class PictureOfTheDayFragment : Fragment() {
         viewModel.getData().observe(viewLifecycleOwner){ renderData(it) }
         _binding = FragmentMainBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.inputLayout.setEndIconOnClickListener{
+            startActivity(Intent(Intent.ACTION_VIEW).apply {
+                data = Uri.parse("https://en.wikipedia.org/wiki/${binding.inputEditText.text.toString()}")
+            })
+        }
     }
 
     private fun renderData(data: PictureOfTheDayData){
