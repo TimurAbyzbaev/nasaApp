@@ -2,11 +2,13 @@ package ru.abyzbaev.nasaapp.ui.main
 
 import android.Manifest
 import android.app.Application
+import android.content.Context
 import android.content.Intent
 import android.content.res.Resources
 import android.net.Uri
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.util.Log
 import android.view.Gravity
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -17,6 +19,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.app.ActivityCompat.recreate
 import coil.load
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import ru.abyzbaev.nasaapp.MainActivity
@@ -25,20 +28,21 @@ import ru.abyzbaev.nasaapp.R
 import ru.abyzbaev.nasaapp.databinding.FragmentMainBinding
 
 class PictureOfTheDayFragment : Fragment() {
-
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
-    //private lateinit var themeId: Int
+
 
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
     private val viewModel: PictureOfTheDayViewModel by lazy {
         ViewModelProvider.NewInstanceFactory().create(PictureOfTheDayViewModel::class.java)
     }
 
+
     @Override
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        Log.d("CURRENT THEME_ID", "${themeId}")
+        context?.setTheme(themeId)
     }
 
     override fun onCreateView(
@@ -60,22 +64,16 @@ class PictureOfTheDayFragment : Fragment() {
         }
         setBottomSheetBehavior(view.findViewById(R.id.bottom_sheet_container))
         binding.buttonThm1.setOnClickListener{
-            requireContext().setTheme(R.style.IndigoTheme)
-            //o
-            //onSaveInstanceState()
-            requireActivity().recreate()
+            Toast.makeText(requireContext(), "Theme Indigo apply", Toast.LENGTH_SHORT).show()
+            themeId = R.style.IndigoTheme
+            activity?.recreate()
         }
         binding.buttonThm2.setOnClickListener{
-            requireContext().setTheme(R.style.PinkTheme)
-            requireActivity().recreate()
+            Toast.makeText(requireContext(), "Theme Pink apply", Toast.LENGTH_SHORT).show()
+            themeId = R.style.PinkTheme
+            activity?.recreate()
         }
     }
-
-    //saving state
-    /*override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putString(MainActivity().THEME, )
-    }*/
 
 
     private fun setBottomSheetBehavior(bottomSheet: ConstraintLayout){
@@ -144,5 +142,7 @@ class PictureOfTheDayFragment : Fragment() {
 
     companion object {
         fun newInstance() = PictureOfTheDayFragment()
+        private const val THEME = "THEME"
+        private var themeId = R.style.Theme_NasaApp
     }
 }
