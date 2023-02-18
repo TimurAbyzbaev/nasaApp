@@ -22,10 +22,7 @@ import coil.load
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomnavigation.BottomNavigationItemView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import ru.abyzbaev.nasaapp.BottomNavigationDrawerFragment
-import ru.abyzbaev.nasaapp.MainActivity
-import ru.abyzbaev.nasaapp.PictureOfTheDayData
-import ru.abyzbaev.nasaapp.R
+import ru.abyzbaev.nasaapp.*
 import ru.abyzbaev.nasaapp.databinding.FragmentMainBinding
 
 class PictureOfTheDayFragment : Fragment() {
@@ -71,10 +68,20 @@ class PictureOfTheDayFragment : Fragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.menu_bottom_bar, menu)
+
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+            R.id.app_bar_fav -> {
+                activity?.let { startActivity(Intent(it, ViewPagerActivity::class.java)) }
+            }
+            /*R.id.app_bar_search -> {
+                activity?.supportFragmentManager?.beginTransaction()?.add(R.id.container, SettingsFragment())
+                    ?.addToBackStack(null)
+                    ?.commit()
+            }*/
+
             android.R.id.home -> {
                 activity?.let {
                     BottomNavigationDrawerFragment().show(it.supportFragmentManager, tag)
