@@ -12,3 +12,4 @@ data class PODServerResponseData(
     @field:SerializedName("hdurl") val hdurl: String?
 
 )
+
