@@ -9,4 +9,11 @@
     <string name="Button1">Theme 1</string>
     <string name="Button2">Theme 2</string>
     <string name="change_theme">Change theme</string>
+
+    //Tabs
+    <string name="earth_tab_text">Earth</string>
+    <string name="mars_tab_text">Mars</string>
+    <string name="solar_tab_text">Solar</string>
+
+
 </resources>
