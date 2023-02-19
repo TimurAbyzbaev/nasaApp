@@ -17,6 +17,7 @@ import coil.load
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import ru.abyzbaev.nasaapp.*
+import ru.abyzbaev.nasaapp.bottom_navigation.BottomNavigationActivity
 import ru.abyzbaev.nasaapp.databinding.FragmentMainBinding
 import ru.abyzbaev.nasaapp.view_pager.ViewPagerActivity
 
@@ -76,6 +77,11 @@ class PictureOfTheDayFragment : Fragment() {
                     ?.addToBackStack(null)
                     ?.commit()
             }*/
+            R.id.app_bar_bottom_navigation -> {
+                activity?.let {
+                    startActivity(Intent(it, BottomNavigationActivity::class.java))
+                }
+            }
 
             android.R.id.home -> {
                 activity?.let {

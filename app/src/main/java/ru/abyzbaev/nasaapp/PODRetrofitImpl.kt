@@ -21,6 +21,8 @@ class PODRetrofitImpl {
         return podRetrofit.create(PictureOfTheDayAPI::class.java)
     }
 
+
+
     private fun createOkHttpClient(interceptor: Interceptor): OkHttpClient {
         val httpClient = OkHttpClient.Builder()
         httpClient.addInterceptor(interceptor)
