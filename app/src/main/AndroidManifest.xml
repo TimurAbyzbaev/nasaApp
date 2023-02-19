@@ -23,7 +23,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ViewPagerActivity"
+            android:name=".view_pager.ViewPagerActivity"
             android:exported="true">
 
         </activity>

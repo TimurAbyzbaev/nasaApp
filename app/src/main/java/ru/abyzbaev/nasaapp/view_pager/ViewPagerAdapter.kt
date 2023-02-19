@@ -1,4 +1,4 @@
-package ru.abyzbaev.nasaapp
+package ru.abyzbaev.nasaapp.view_pager
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -23,6 +23,16 @@ class ViewPagerAdapter(fragmentManager: FragmentManager):
 
     override fun getCount(): Int {
         return fragments.size
+    }
+
+    override fun getPageTitle(position: Int): CharSequence? {
+        /*return when(position){
+            EARTH_FRAGMENT -> "Earth"
+            MARS_FRAGMENT -> "Mars"
+            WEATHER_FRAGMENT -> "Weather"
+            else -> "Earth"
+        }*/
+        return null
     }
 
     companion object{

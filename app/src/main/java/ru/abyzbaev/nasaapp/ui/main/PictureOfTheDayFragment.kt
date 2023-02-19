@@ -1,10 +1,6 @@
 package ru.abyzbaev.nasaapp.ui.main
 
-import android.Manifest
-import android.app.Application
-import android.content.Context
 import android.content.Intent
-import android.content.res.Resources
 import android.net.Uri
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -16,14 +12,13 @@ import android.view.View.VISIBLE
 import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.app.ActivityCompat.recreate
 import androidx.core.content.ContextCompat
 import coil.load
 import com.google.android.material.bottomappbar.BottomAppBar
-import com.google.android.material.bottomnavigation.BottomNavigationItemView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import ru.abyzbaev.nasaapp.*
 import ru.abyzbaev.nasaapp.databinding.FragmentMainBinding
+import ru.abyzbaev.nasaapp.view_pager.ViewPagerActivity
 
 class PictureOfTheDayFragment : Fragment() {
     private var _binding: FragmentMainBinding? = null
